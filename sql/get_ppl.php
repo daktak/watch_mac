@@ -3,7 +3,7 @@
     $connection = mysqli_connect("localhost","user","pass","pbnj") or die("Error " . mysqli_error($connection));
 
     //fetch table rows from mysql db
-    $sql = "select monitor_list.initial as i, if(hosts.status='Up','1','0') as e from monitor_list left join hosts ON hosts.mac = monitor_list.mac";
+    $sql = "select monitor_list.initial as i, if(hosts.status='Up','1','0') as e from monitor_list left join hosts ON hosts.mac = monitor_list.mac order by 1";
     $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
 
     //create an array

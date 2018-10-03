@@ -1,4 +1,6 @@
 <?php
+include 'header.php';
+
 $con=mysqli_connect("localhost","user","pass","pbnj");
 // Check connection
 if (mysqli_connect_errno())
@@ -8,7 +10,8 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
 
 $result = mysqli_query($con,"SELECT * from host_history where mac not in (select mac from blacklist)");
 
-echo "<table border='1'>";
+echo "<div class='table-responsive'>";
+echo "<table border='1' class='table'>";
 
 $i = 0;
 while($row = $result->fetch_assoc())
@@ -28,6 +31,8 @@ while($row = $result->fetch_assoc())
     echo "</tr>";
 }
 echo "</table>";
+echo "</div>";
 
 mysqli_close($con);
+include 'footer.php';
 ?>

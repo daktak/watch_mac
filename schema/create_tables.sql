@@ -10,6 +10,8 @@ CREATE TABLE `host_history` (
   `osfamily` text COLLATE utf8mb4_unicode_ci,
   `osgen` text COLLATE utf8mb4_unicode_ci,
   `vendor` text COLLATE utf8mb4_unicode_ci,
+  `mac_date` text COLLATE utf8mb4_unicode_ci,
+  `mac_company` text COLLATE utf8mb4_unicode_ci,
   `last_scanned` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -25,6 +27,8 @@ CREATE TABLE `hosts` (
   `osfamily` text COLLATE utf8mb4_unicode_ci,
   `osgen` text COLLATE utf8mb4_unicode_ci,
   `vendor` text COLLATE utf8mb4_unicode_ci,
+  `mac_date` text COLLATE utf8mb4_unicode_ci,
+  `mac_company` text COLLATE utf8mb4_unicode_ci,
   `last_scanned` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ip`),
   UNIQUE KEY `ip` (`ip`)

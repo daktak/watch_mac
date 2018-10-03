@@ -92,6 +92,8 @@ $S{CREATE_TABLE} = qq{  CREATE TABLE } . $G{TABLE} . qq{ (
   osfamily        TEXT,
   osgen           TEXT,
   vendor	  TEXT,
+  mac_date        TEXT,
+  mac_company     TEXT,
   last_scanned    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   UNIQUE (ip))
   };
@@ -99,7 +101,7 @@ $S{CREATE_TABLE} = qq{  CREATE TABLE } . $G{TABLE} . qq{ (
 $S{INSERT_HOST}
     = qq{REPLACE INTO }
     . $G{TABLE}
-    . qq{ (ip, mac, status, hostname, open_ports, filtered_ports, osname, osfamily, osgen, vendor) VALUES (?,?,?,?,?,?,?,?,?,?)};
+    . qq{ (ip, mac, status, hostname, open_ports, filtered_ports, osname, osfamily, osgen, vendor, mac_date, mac_company) VALUES (?,?,?,?,?,?,?,?,?,?)};
 
 my $np = new Nmap::Parser;
 
@@ -153,6 +155,7 @@ $dbh->disconnect();
 sub insert_host {
     my $host = shift;
     my $os   = $host->os_sig();
+    my @mac  = `./get_mac_date.py $host->mac_addr`;
 
     #ip, mac, status, hostname, open_ports, filtered_ports, os_family, os_gen
     my @input_values = (
@@ -165,7 +168,9 @@ sub insert_host {
         $os->name     || undef,
         $os->osfamily || undef,
         $os->osgen    || undef,
-	$host->mac_vendor   || undef
+        $host->mac_vendor   || undef,
+        $mac[0] || undef,
+        $mac[1] || undef
     );
 
     my $rv
@@ -256,6 +261,8 @@ Here is the schema for the table stored in the SQLite database
   osfamily        TEXT,
   osgen           TEXT,
   vendor	  TEXT,
+  mac_date        TEXT,
+  mac_company     TEXT,
   last_scanned    TIMESTAMP  DEFAULT  CURRENT_TIMESTAMP,
   UNIQUE (ip))
 

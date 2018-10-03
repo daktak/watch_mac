@@ -101,7 +101,7 @@ $S{CREATE_TABLE} = qq{  CREATE TABLE } . $G{TABLE} . qq{ (
 $S{INSERT_HOST}
     = qq{REPLACE INTO }
     . $G{TABLE}
-    . qq{ (ip, mac, status, hostname, open_ports, filtered_ports, osname, osfamily, osgen, vendor, mac_date, mac_company) VALUES (?,?,?,?,?,?,?,?,?,?)};
+    . qq{ (ip, mac, status, hostname, open_ports, filtered_ports, osname, osfamily, osgen, vendor, mac_date, mac_company) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)};
 
 my $np = new Nmap::Parser;
 

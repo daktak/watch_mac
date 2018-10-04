@@ -155,12 +155,18 @@ $dbh->disconnect();
 sub insert_host {
     my $host = shift;
     my $os   = $host->os_sig();
-    my @mac  = `./get_mac_date.py $host->mac_addr`;
+    my $mac_addr = $host->mac_addr;
+    my @mac = ("","");
+    if ($mac_addr eq "") {
+    }
+    else {
+      my @mac  = `./get_mac_date.py $mac_addr`;
+    }
 
     #ip, mac, status, hostname, open_ports, filtered_ports, os_family, os_gen
     my @input_values = (
         $host->addr,
-        $host->mac_addr || undef,
+        $mac_addr || undef,
         $host->status   || undef,
         $host->hostname || undef,
         join( ',', $host->tcp_open_ports )     || undef,

@@ -3,11 +3,11 @@
 # vim:fenc=utf-8
 #
 
-import pandas as pd
 import sys
 
 if __name__=="__main__" :
     if len(sys.argv) > 1 :
+        import pandas as pd
         url = r'http://search.deepmac.org/search.php?date=&macadd='+sys.argv[1:][0]+'&comp=&dev=&numresults=1'
         tables = pd.read_html(url)
         out = tables[0]
@@ -15,3 +15,6 @@ if __name__=="__main__" :
         company = pd.DataFrame(out).at[0,'Company']
         print (date)
         print (company)
+    else :
+        print ()
+        print ()
